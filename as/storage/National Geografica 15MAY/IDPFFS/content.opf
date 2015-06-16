@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="EPB-UUID" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>Peter and Wendy</dc:title>
+    <dc:creator opf:file-as="Barrie, James Matthew" opf:role="aut">James Matthew Barrie</dc:creator>
+    <dc:creator opf:file-as="Bedford, F. D." opf:role="ill">F. D. Bedford</dc:creator>
+    <dc:date opf:event="original-publication">1911</dc:date>
+    <dc:date opf:event="epub-publication">2011-12-06</dc:date>
+    <dc:subject>Fantasy</dc:subject>
+    <dc:subject>Young Readers</dc:subject>
+    <dc:source>Project Gutenberg</dc:source>
+    <dc:identifier id="EPB-UUID">http://www.magicscroll.net/peter.epub</dc:identifier>
+    <dc:language>en-gb</dc:language>
+    <meta content="0.4.2" name="Sigil version" />
+    <meta name="cover" content="img-bookcover-jpeg" />
+  </metadata>
+  <manifest>
+    <!-- Content Documents -->
+    <item href="Text/coverpage.html" id="coverpage" media-type="application/xhtml+xml" />
+    <item href="Text/title.html" id="titlepage" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-001.html" id="chapter-001" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-002.html" id="chapter-002" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-003.html" id="chapter-003" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-004.html" id="chapter-004" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-005.html" id="chapter-005" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-006.html" id="chapter-006" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-007.html" id="chapter-007" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-008.html" id="chapter-008" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-009.html" id="chapter-009" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-010.html" id="chapter-010" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-011.html" id="chapter-011" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-012.html" id="chapter-012" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-013.html" id="chapter-013" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-014.html" id="chapter-014" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-015.html" id="chapter-015" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-016.html" id="chapter-016" media-type="application/xhtml+xml" />
+    <item href="Text/chapter-017.html" id="chapter-017" media-type="application/xhtml+xml" />
+    <!-- CSS Style Sheets -->
+    <item href="Styles/peter.css" id="peter.css" media-type="text/css" />
+    <!-- Images -->
+    <item href="Images/bookcover.jpg" id="img-bookcover-jpeg" media-type="image/jpeg" />
+    <item href="Images/i005.jpg" id="img-i005-jpeg" media-type="image/jpeg" />
+    <item href="Images/i006.jpg" id="img-i006-jpeg" media-type="image/jpeg" />
+    <item href="Images/i044.jpg" id="img-i044-jpeg" media-type="image/jpeg" />
+    <item href="Images/i078.jpg" id="img-i078-jpeg" media-type="image/jpeg" />
+    <item href="Images/i090.jpg" id="img-i090-jpeg" media-type="image/jpeg" />
+    <item href="Images/i130.jpg" id="img-i130-jpeg" media-type="image/jpeg" />
+    <item href="Images/i148.jpg" id="img-i148-jpeg" media-type="image/jpeg" />
+    <item href="Images/i166.jpg" id="img-i166-jpeg" media-type="image/jpeg" />
+    <item href="Images/i192.jpg" id="img-i192-jpeg" media-type="image/jpeg" />
+    <item href="Images/i218.jpg" id="img-i218-jpeg" media-type="image/jpeg" />
+    <item href="Images/i228.jpg" id="img-i228-jpeg" media-type="image/jpeg" />
+    <item href="Images/i254.jpg" id="img-i254-jpeg" media-type="image/jpeg" />
+    <item href="Images/i288.jpg" id="img-i288-jpeg" media-type="image/jpeg" />
+    <!-- NCX -->
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="coverpage" linear="yes" />
+    <itemref idref="titlepage" linear="yes" />
+    <itemref idref="chapter-001" linear="yes" />
+    <itemref idref="chapter-002" linear="yes" />
+    <itemref idref="chapter-003" linear="yes" />
+    <itemref idref="chapter-004" linear="yes" />
+    <itemref idref="chapter-005" linear="yes" />
+    <itemref idref="chapter-006" linear="yes" />
+    <itemref idref="chapter-007" linear="yes" />
+    <itemref idref="chapter-008" linear="yes" />
+    <itemref idref="chapter-009" linear="yes" />
+    <itemref idref="chapter-010" linear="yes" />
+    <itemref idref="chapter-011" linear="yes" />
+    <itemref idref="chapter-012" linear="yes" />
+    <itemref idref="chapter-013" linear="yes" />
+    <itemref idref="chapter-014" linear="yes" />
+    <itemref idref="chapter-015" linear="yes" />
+    <itemref idref="chapter-016" linear="yes" />
+    <itemref idref="chapter-017" linear="yes" />
+  </spine>
+  <guide>
+    <reference href="Text/coverpage.html" title="Cover" type="cover" />
+  </guide>
+</package>

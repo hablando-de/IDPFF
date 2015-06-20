@@ -1,0 +1,34 @@
+<!ELEMENT interactions (elements,events,action)>
+<!ELEMENT elements (element+)>
+<!ELEMENT events (event+)>
+<!ELEMENT actions (action+)>
+<!ELEMENT element EMPTY>
+<!ELEMENT event EMPTY>
+<!ELEMENT action (move*,rotate*,scale*,notify*)>
+<!ELEMENT move EMPTY>
+<!ELEMENT rotate EMPTY>
+<!ELEMENT scale EMPTY>
+<!ELEMENT notify EMPTY>
+<!ATTLIST element id CDATA #REQUIRED>
+<!ATTLIST element type (img|text|any) "any" #REQUIRED>
+<!ATTLIST event id CDATA #REQUIRED>
+<!ATTLIST event type (timed|userInteraction|scripted) "userInteraction" #REQUIRED>
+<!ATTLIST event elementId CDATA #REQUIRED>
+<!ATTLIST event actionId CDATA #REQUIRED>
+<!ATTLIST action id CDATA #REQUIRED>
+<!ATTLIST move elementId CDATA #REQUIRED>
+<!ATTLIST move moveToX CDATA #REQUIRED>
+<!ATTLIST move moveToY CDATA #REQUIRED>
+<!ATTLIST move relative (true|false) "true">
+<!ATTLIST move duration CDATA "0">
+<!ATTLIST scale elementId CDATA #REQUIRED>
+<!ATTLIST scale scaleX CDATA #REQUIRED>
+<!ATTLIST scale scaleY CDATA #REQUIRED>
+<!ATTLIST scale duration CDATA "0">
+<!ATTLIST rotate elementId CDATA #REQUIRED>
+<!ATTLIST rotate degrees CDATA #REQUIRED>
+<!ATTLIST rotate around (center|arbitrary) "center" #REQUIRED>
+<!ATTLIST rotate arbitraryX CDATA "0" >
+<!ATTLIST rotate arbitraryY CDATA "0">
+<!ATTLIST rotate duration CDATA "0">
+<!ATTLIST notify eventId CDATA #REQUIRED>

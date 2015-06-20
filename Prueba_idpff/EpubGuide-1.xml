@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<interactions>
+<elements>
+<element id ="image1" type="img"/>
+</elements>
+<events>
+<event id = "event1" type="userInteraction" elementId="image1" actionId="action1"/>
+</events>
+<actions>
+<action id ="action1">
+<move elementId="image1" moveToX="20" moveToY="20" relative = "true" duration="0"/>
+</action>
+</actions>
+</interactions>

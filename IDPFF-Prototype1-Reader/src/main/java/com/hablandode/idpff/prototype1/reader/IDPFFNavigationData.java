@@ -5,10 +5,16 @@
  */
 package com.hablandode.idpff.prototype1.reader;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aldo Rangel
  */
 public class IDPFFNavigationData {
+    
+    private ArrayList<IDPFFContentElement> orderedElements;
+    
+    
     
 }

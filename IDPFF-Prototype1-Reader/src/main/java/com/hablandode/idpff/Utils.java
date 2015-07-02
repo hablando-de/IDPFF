@@ -43,7 +43,7 @@ public class Utils {
         return null;
     }
     
-    public void extractZipInFolder(String zipFile, String outputFolder){
+    public static void extractZipInFolder(String zipFile, String outputFolder){
      byte[] buffer = new byte[2048];
  
      try{
@@ -59,7 +59,10 @@ public class Utils {
     	ZipEntry ze = zis.getNextEntry();
  
     	while(ze!=null){
- 
+            if (ze.isDirectory()) {
+                ze = zis.getNextEntry();
+                continue;
+            }
     	   String fileName = ze.getName();
            File decompressedFile = new File(outputFolder + File.separator + fileName);
  

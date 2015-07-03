@@ -14,6 +14,22 @@ import java.util.ArrayList;
 public class IDPFFNavigationData {
     
     private ArrayList<IDPFFContentElement> orderedElements;
+    private int currentIndex;
+
+    public IDPFFNavigationData() {
+        orderedElements = new ArrayList<>();
+        currentIndex = 0;
+    }
+    
+    public void addElement(IDPFFContentElement element){
+        orderedElements.add(element);
+    
+    }
+    
+    public void getNextElement(){
+    
+    }
+    
     
     
     

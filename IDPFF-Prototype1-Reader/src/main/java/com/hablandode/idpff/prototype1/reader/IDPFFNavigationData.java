@@ -72,6 +72,8 @@ public class IDPFFNavigationData {
          return allUnSortedElements.containsKey(el.getId()+"xid");
      } 
      
-    
+    public void setAllUnSortedElements(HashMap<String, IDPFFContentElement> allUnSortedElements) {
+        this.allUnSortedElements = allUnSortedElements;
+    }
     
 }

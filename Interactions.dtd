@@ -13,7 +13,8 @@
 <!ATTLIST element type (img|text|any) "any" #REQUIRED>
 <!ATTLIST event id CDATA #REQUIRED>
 <!ATTLIST event type (timed|userInteraction|scripted) "userInteraction" #REQUIRED>
-<!ATTLIST event elementId CDATA #REQUIRED>
+<!ATTLIST event elementId CDATA >
+<!ATTLIST event timeout CDATA >
 <!ATTLIST event actionId CDATA #REQUIRED>
 <!ATTLIST action id CDATA #REQUIRED>
 <!ATTLIST move elementId CDATA #REQUIRED>

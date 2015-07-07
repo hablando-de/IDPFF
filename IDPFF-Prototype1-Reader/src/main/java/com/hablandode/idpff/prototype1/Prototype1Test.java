@@ -6,7 +6,6 @@
 package com.hablandode.idpff.prototype1;
 
 import com.hablandode.idpff.prototype1.reader.IDPFFP1Reader;
-import java.io.File;
 
 /**
  *
@@ -36,6 +35,9 @@ public class Prototype1Test {
    
         IDPFFP1Reader reader = new IDPFFP1Reader(PATH_TO_IDPFF);
         reader.loadIDPFF();
+        System.out.println("*****************");
+        reader.logAllIDPFFData();
+        System.out.println("*****************");
     }
     
     

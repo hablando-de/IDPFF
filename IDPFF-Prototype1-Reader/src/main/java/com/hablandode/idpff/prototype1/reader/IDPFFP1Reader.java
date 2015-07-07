@@ -24,7 +24,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class IDPFFP1Reader {
     
-    private String idpffPath;
+    private final String idpffPath;
     
     private String decompressedRootPath;
     
@@ -37,14 +37,43 @@ public class IDPFFP1Reader {
         this.idpffPath = filePath;
     }
     
+    public void logAllIDPFFData(){
+        System.out.println("IDPFF data:");
+        System.out.println("IDPFF Path:");
+        System.out.println(idpffPath);
+        System.out.println("IDPFF decompressedPath:");
+        System.out.println(decompressedRootPath);
+        System.out.println("Navigation Data:");
+        System.out.println("ASD");
+        System.out.println("Elements: ");
+        System.out.println("**********");
+        IDPFFContentElement elementZero = navData.getElementAtIndex(0, true);
+        System.out.println("Path ");
+        System.out.println(elementZero.getPathToElement());
+        System.out.println("MimeType");
+        System.out.println(elementZero.getMimeType());
+        while(navData.hasNextElement()){
+        System.out.println("**********");
+        IDPFFContentElement element = navData.getNextElement();
+        System.out.println("Path ");
+        System.out.println(element.getPathToElement());
+        System.out.println("MimeType");
+        System.out.println(element.getMimeType());
+        }
+        System.out.println("**********");
+        
+    }
+    
     public void loadIDPFF(){
         try {
             System.out.println("Getting containerFilePath");
             String contentFilePath = this.getContentFilePath();
             System.out.println("Finished getting containerFilePath");
             System.out.println("Parsing content file ");
+            System.out.println("decompressedRootPath + File.separator + contentFilePath" + decompressedRootPath + File.separator + contentFilePath);
             this.readContentFile(decompressedRootPath + File.separator + contentFilePath);
             System.out.println("Finished parsing content file");
+            
             
         } catch (IOException | ParserConfigurationException | SAXException ex) {
             Logger.getLogger(IDPFFP1Reader.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,8 +89,11 @@ public class IDPFFP1Reader {
             String extractedPath = this.idpffPath.substring(0, this.idpffPath.length() - 6);
             System.out.println("Extracted Path:" + extractedPath);
             Utils.extractZipInFolder(this.idpffPath, extractedPath );
-            this.decompressedRootPath = extractedPath;
-            return extractedPath + File.separatorChar + "META-INF/container.xml";
+            
+            String extraPath = extractedPath.lastIndexOf(File.separator)!= -1 ? extractedPath.substring(extractedPath.lastIndexOf(File.separator)) : extractedPath.substring(extractedPath.lastIndexOf("/"));
+            System.out.println(extraPath);
+            this.decompressedRootPath = extractedPath + File.separatorChar + extraPath + File.separatorChar;
+            return extractedPath + File.separatorChar + extraPath + File.separatorChar + "META-INF/container.xml";
             
         
         }
@@ -183,7 +215,7 @@ public class IDPFFP1Reader {
                 
                 if (qName.equalsIgnoreCase("item")) {
                     System.out.println("item = " + attributes.getValue("id")+" "+attributes.getValue("href"));
-                    elements.put(attributes.getValue("id"), new IDPFFContentElement(attributes.getValue("href"), attributes.getValue("media-type")));
+                    elements.put(attributes.getValue("id"), new IDPFFContentElement(attributes.getValue("id"), attributes.getValue("href"), attributes.getValue("media-type")));
 		}
                 
                 if (qName.equalsIgnoreCase("itemref")) {
@@ -204,20 +236,6 @@ public class IDPFFP1Reader {
  
         @Override
 	public void characters(char ch[], int start, int length) throws SAXException {
- 
-            /* Commented for testing purposses but i'll remove this once in dont need it anymore 
-		if (bcontainer) {
-			bcontainer = false;
-		}
- 
-		if (brootfiles) {
-			brootfiles = false;
-		}
- 
-		if (brootfile) {
-                    sb.append( new String(ch, start, length));
-			brootfile = false;
-		}*/
  
 	}
 
@@ -246,4 +264,76 @@ public class IDPFFP1Reader {
         }
         
     }
+
+    private class XIDParer extends DefaultHandler{
+        
+        boolean bcontainer = false;
+	boolean brootfiles = false;
+	boolean brootfile = false;
+        StringBuilder sb =  new StringBuilder();
+        private String javascriptFunction;
+        
+        @Override
+	public void startElement(String uri, String localName,String qName, 
+                Attributes attributes) throws SAXException {
+ 
+		System.out.println("Start Element :" + qName);
+ 
+		if (qName.equalsIgnoreCase("element")) {
+                    sb.append(String.format("var %s = document.getElementById('%s');", attributes.getValue("id"), attributes.getValue("id")));
+		}
+		if (qName.equalsIgnoreCase("event")) {
+                    if("userInteraction".equalsIgnoreCase(attributes.getValue("type"))){
+                        sb.append(String.format("%s.addEventListener(\"click\", getElementById('%s');", attributes.getValue("elementId"), attributes.getValue("actionId"))); 
+                    
+                    } else if("timed".equalsIgnoreCase(attributes.getValue("type"))){
+                        sb.append(String.format("setTimeOut(%s,%s);", attributes.getValue("actionId"), attributes.getValue("timeout"))); 
+                    
+                    }
+		}
+ 
+		if (qName.equalsIgnoreCase("action")) {
+                    sb.append(String.format("function %s (){", attributes.getValue("id")));
+		}
+                if (qName.equalsIgnoreCase("move")) {
+                    String type = Boolean.parseBoolean(attributes.getValue("relative")) ? "relative" : "absolute";
+                    Integer duration = Integer.parseInt("duration");
+                    if(duration <= 0){
+      
+                        sb.append("Move function xDDDD");
+                    
+                    }else{
+                        
+                        //jquery animate hybrid musst be here
+                    
+                    }
+		}
+                if (qName.equalsIgnoreCase("rotation")) {
+                    
+		}
+ 
+	}
+ 
+        @Override
+	public void endElement(String uri, String localName,
+		String qName) throws SAXException {
+
+		System.out.println("End Element :" + qName);
+                if (qName.equalsIgnoreCase("action")) {
+                    sb.append("}");
+		}
+ 
+	}
+ 
+        @Override
+	public void characters(char ch[], int start, int length) throws SAXException {
+ 
+	}
+ 
+        public String getJavascriptCode(){
+            return sb.toString();
+        }
+    
+    }
+
 }

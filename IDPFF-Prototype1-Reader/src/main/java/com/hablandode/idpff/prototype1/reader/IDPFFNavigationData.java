@@ -6,6 +6,7 @@
 package com.hablandode.idpff.prototype1.reader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  */
 public class IDPFFNavigationData {
     
-    private ArrayList<IDPFFContentElement> orderedElements;
+    private final ArrayList<IDPFFContentElement> orderedElements;
+    private HashMap<String,IDPFFContentElement> allUnSortedElements;
     private int currentIndex;
 
     public IDPFFNavigationData() {
@@ -26,11 +28,50 @@ public class IDPFFNavigationData {
     
     }
     
-    public void getNextElement(){
-    
+    public IDPFFContentElement getNextElement(){
+        if (hasNextElement()) {
+            currentIndex++;
+            return orderedElements.get(currentIndex);
+        }
+        return null;
     }
     
+    public IDPFFContentElement getPreviousElement(){
+        if (hasPreviousElement()) {
+            currentIndex--;
+            return orderedElements.get(currentIndex);
+        }
+        return null;
+    }
     
+    public boolean hasNextElement(){
+        return (currentIndex + 1 < orderedElements.size() );
+    }
+     public boolean hasPreviousElement(){
+        return (currentIndex - 1 > -1 );
+    }
+    
+     public IDPFFContentElement getElementAtIndex(int index, boolean moveCurrentIndex){
+         if(index > -1 && index < orderedElements.size()){
+             if(moveCurrentIndex){
+                 currentIndex = index;
+             }
+         return orderedElements.get(index);
+         } 
+         return null;
+     }
+    
+     public IDPFFContentElement getCurrentElementXID(){
+     
+         IDPFFContentElement el = getElementAtIndex(currentIndex, true);
+         return allUnSortedElements.get(el.getId()+"xid");
+     }
+     
+     public boolean currentElementHasXID(){
+         IDPFFContentElement el = getElementAtIndex(currentIndex, true);
+         return allUnSortedElements.containsKey(el.getId()+"xid");
+     } 
+     
     
     
 }

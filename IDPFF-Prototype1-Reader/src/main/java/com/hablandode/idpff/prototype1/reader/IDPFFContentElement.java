@@ -10,15 +10,21 @@ package com.hablandode.idpff.prototype1.reader;
  * @author Aldo Rangel
  */
 public class IDPFFContentElement {
+    private String id;
     private String pathToElement;
     private String mimeType;
 
     public IDPFFContentElement() {
     }
 
-    public IDPFFContentElement(String pathToElement, String mimeType) {
+    public IDPFFContentElement(String id,String pathToElement, String mimeType) {
+        this.id = id;
         this.pathToElement = pathToElement;
         this.mimeType = mimeType;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getPathToElement() {

@@ -290,7 +290,7 @@ public class IDPFFP1Reader {
             }
             if (qName.equalsIgnoreCase("event")) {
                 if ("userInteraction".equalsIgnoreCase(attributes.getValue("type"))) {
-                    sb.append(String.format("%s.addEventListener(\"click\", getElementById('%s');", attributes.getValue("elementId"), attributes.getValue("actionId")));
+                    sb.append(String.format("%s.addEventListener(\"click\", %s);", attributes.getValue("elementId"), attributes.getValue("actionId")));
 
                 } else if ("timed".equalsIgnoreCase(attributes.getValue("type"))) {
                     sb.append(String.format("setTimeOut(%s,%s);", attributes.getValue("actionId"), attributes.getValue("timeout")));
@@ -299,14 +299,20 @@ public class IDPFFP1Reader {
             }
 
             if (qName.equalsIgnoreCase("action")) {
-                sb.append(String.format("function %s (){", attributes.getValue("id")));
+                sb.append(String.format("function %s(){", attributes.getValue("id")));
             }
             if (qName.equalsIgnoreCase("move")) {
                 String type = Boolean.parseBoolean(attributes.getValue("relative")) ? "relative" : "absolute";
                 Integer duration = Integer.parseInt(attributes.getValue("duration"));
                 if (duration <= 0) {
-
-                    sb.append("Move function xDDDD");
+                    sb.append(String.format("%s.style.position = '%s';", attributes.getValue("elementId"), type));
+                    sb.append(String.format("%s.style.left= %s.style.left ? %s.style.left : 0; %s.style.top = %s.style.top ? %s.style.top : 0;", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId")));
+                    if(type.contentEquals("relative")){
+                    sb.append(String.format("%s.style.left = parseInt(%s.style.left) + %s + 'px';", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("moveToX")));
+                    sb.append(String.format("%s.style.top = parseInt(%s.style.top) + %s + 'px';", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("moveToY")));
+                    }
+                    else
+                        sb.append("");
 
                 } else {
 

@@ -1,7 +1,5 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * IDPFFENgine.js
  */
 
 
@@ -17,7 +15,7 @@ function rotateElement(elementId, degrees) {
     
 }
 
-function rotateElement(elementId, degrees, duration) {
+function rotateElementT(elementId, degrees, duration) {
     $('#' + elementId).css({"transition": "transform " + duration +"s",
         "-webkit-transition": "-webkit-transform " + duration +"s",
         "-moz-transition": "-moz-transform " + duration +"s",
@@ -37,7 +35,7 @@ function moveElement(elementId, moveX, moveY) {
         "-o-transform": value});
 }
 
-function moveElement(elementId, moveX, moveY, duration) {
+function moveElementT(elementId, moveX, moveY, duration) {
     
     $('#' + elementId).css({"transition": "transform " + duration +"s",
         "-webkit-transition": "-webkit-transform " + duration +"s",
@@ -56,12 +54,35 @@ function scaleElement(elementId, scaleX, scaleY) {
         "-o-transform": value});
 }
 
-function scaleElement(elementId, scaleX, scaleY, duration) {
+function scaleElementT(elementId, scaleX, scaleY, duration) {
     
     $('#' + elementId).css({"transition": "transform " + duration +"s",
         "-webkit-transition": "-webkit-transform " + duration +"s",
         "-moz-transition": "-moz-transform " + duration +"s",
         "-o-transition": "-o-transform " + duration +"s"});
-    moveElement(elementId,moveX,moveY);
+    scaleElement(elementId,scaleX,scaleY);
 }
 
+
+
+function transformElement(elementId, degrees, scaleX, scaleY, moveX, moveY){
+    var element = $('#' + elementId);
+    var value = " scale(" + scaleX + ","+ scaleY+") ";
+    value +=  " rotate(" + degrees + "deg) ";
+    value += " translate(" + moveX + "px, " + moveY + "px) ";
+    element.css({"transform": value,
+        "-webkit-transform": value,
+        "-moz-transform": value,
+        "-o-transform": value});
+}
+
+function setTransitionDurationToElement(elementId, duration) {    
+    $('#' + elementId).css({"transition": "transform " + duration +"s",
+        "-webkit-transition": "-webkit-transform " + duration +"s",
+        "-moz-transition": "-moz-transform " + duration +"s",
+        "-o-transition": "-o-transform " + duration +"s"});
+}
+
+function resetElement(elementId){
+    transformElement(elementId,0,1,1,0,0);
+}

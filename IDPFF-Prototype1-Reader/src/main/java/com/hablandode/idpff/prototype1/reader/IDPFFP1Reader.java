@@ -278,13 +278,19 @@ public class IDPFFP1Reader {
         boolean brootfile = false;
         StringBuilder sb = new StringBuilder();
         private String javascriptFunction;
+        private String degrees = "0";
+        private String scaleX = "1";
+        private String scaleY = "1";
+        private String moveX = "0";
+        private String moveY = "0";
+        private String duration = "0";
+        private String elementId = "";
 
         @Override
         public void startElement(String uri, String localName, String qName,
                 Attributes attributes) throws SAXException {
 
             System.out.println("Start Element :" + qName);
-
             if (qName.equalsIgnoreCase("element")) {
                 sb.append(String.format("var %s = document.getElementById('%s');", attributes.getValue("id"), attributes.getValue("id")));
             }
@@ -294,32 +300,52 @@ public class IDPFFP1Reader {
 
                 } else if ("timed".equalsIgnoreCase(attributes.getValue("type"))) {
                     sb.append(String.format("setTimeOut(%s,%s);", attributes.getValue("actionId"), attributes.getValue("timeout")));
-
                 }
             }
-
             if (qName.equalsIgnoreCase("action")) {
                 sb.append(String.format("function %s(){", attributes.getValue("id")));
             }
+            
+            
+            
+            
             if (qName.equalsIgnoreCase("move")) {
                 String type = Boolean.parseBoolean(attributes.getValue("relative")) ? "relative" : "absolute";
                 Integer duration = Integer.parseInt(attributes.getValue("duration"));
-                if (duration <= 0) {
+                moveX = attributes.getValue("moveToX");
+                moveY = attributes.getValue("moveToY");
+                this.duration = attributes.getValue("duration");
+                elementId = attributes.getValue("elementId");
+                /*if (duration <= 0) {
                     sb.append(String.format("%s.style.position = '%s';", attributes.getValue("elementId"), type));
                     sb.append(String.format("%s.style.left= %s.style.left ? %s.style.left : 0; %s.style.top = %s.style.top ? %s.style.top : 0;", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("elementId")));
                     if(type.contentEquals("relative")){
+                        
                     sb.append(String.format("%s.style.left = parseInt(%s.style.left) + %s + 'px';", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("moveToX")));
                     sb.append(String.format("%s.style.top = parseInt(%s.style.top) + %s + 'px';", attributes.getValue("elementId"), attributes.getValue("elementId"), attributes.getValue("moveToY")));
                     }
-                    else
+                    else{
                         sb.append("");
-
+                    }
                 } else {
 
                         //jquery animate hybrid musst be here
-                }
+                }*/
             }
             if (qName.equalsIgnoreCase("rotation")) {
+                
+                moveY = attributes.getValue("moveToY");
+                this.duration = attributes.getValue("duration");
+                elementId = attributes.getValue("elementId");
+
+            }
+            
+            if (qName.equalsIgnoreCase("scale")) {
+                
+                scaleX = attributes.getValue("scaleX");
+                scaleY = attributes.getValue("scaleY");
+                this.duration = attributes.getValue("duration");
+                elementId = attributes.getValue("elementId");
 
             }
 
@@ -331,6 +357,8 @@ public class IDPFFP1Reader {
 
             System.out.println("End Element :" + qName);
             if (qName.equalsIgnoreCase("action")) {
+                sb.append("transformElement(\"").append(elementId).append("\",").append(degrees).append(",").append(scaleX).append(",").append(scaleY).append(",").append(moveX).append(",").append(moveY).append(");");
+                sb.append("setTransitionDurationToElement(\"").append(elementId).append("\",").append(duration).append(");");
                 sb.append("}");
             }
 
